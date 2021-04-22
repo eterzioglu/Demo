@@ -16,7 +16,6 @@ public class Cross : MonoBehaviour
     {
         if (youCanDestroy)
         {
-            Debug.Log("yokedildi");
             transform.DOScale(Vector3.one * 0, 0.25f).OnComplete(() =>
             {
                 gameObject.transform.parent.gameObject.GetComponent<BoxCollider2D>().enabled = true;
@@ -39,7 +38,6 @@ public class Cross : MonoBehaviour
 
         if (count >= 2)
         {
-            Debug.Log("cross count 1 den büyük");
             for (int i = 0; i < mainCrosses.Count; i++)
             {
                 for (int j = 0; j < mainCrosses[i].transform.childCount; j++)
@@ -54,7 +52,6 @@ public class Cross : MonoBehaviour
         }
         else
         {
-            Debug.Log("cross count 1 den küçük");
             for (int i = 0; i < mainCrosses[0].transform.childCount; i++)
             {
                 if (mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().fill && mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross != gameObject)

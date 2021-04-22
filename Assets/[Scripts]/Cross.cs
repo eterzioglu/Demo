@@ -18,6 +18,18 @@ public class Cross : MonoBehaviour
         crosses[index] = gameObject;
     }
 
+    void Update()
+    {
+        if (youCanDestroy)
+        {
+            transform.DOScale(Vector3.one * 0, 0.25f).OnComplete(() =>
+            {
+                Destroy(gameObject);
+                youCanDestroy = false;
+            });
+        }
+    }
+
     public void ControlCells()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -29,7 +41,7 @@ public class Cross : MonoBehaviour
                 count++;
                 if (count == 2)
                 {
-                    DestroyCrosses(crosses);
+                    DestroyCrosses();
                     break;
                 }
             }
@@ -46,7 +58,7 @@ public class Cross : MonoBehaviour
                     count++;
                     if (count == 2)
                     {
-                        DestroyCrosses(crosses);
+                        DestroyCrosses();
                         break;
                     }
                 }
@@ -54,11 +66,12 @@ public class Cross : MonoBehaviour
         }
     }
 
-    void DestroyCrosses(GameObject[] crosses)
+    void DestroyCrosses()
     {
+        UIManager.instance.scoreCount++;
         for (int i = 0; i < crosses.Length; i++)
         {
-            Destroy(crosses[i].gameObject);
+            crosses[i].GetComponent<Cross>().youCanDestroy = true;
         }
     }
 

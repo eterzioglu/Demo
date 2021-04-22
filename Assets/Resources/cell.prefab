@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
-  crosses: []
 --- !u!212 &7891630537120318273
 SpriteRenderer:
   m_ObjectHideFlags: 0

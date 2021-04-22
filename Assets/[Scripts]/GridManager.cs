@@ -10,7 +10,6 @@ public class GridManager : MonoBehaviour
     int gridCount;
     public Camera cam;
     Vector3 camPos;
-    public GameObject[,] cells;
     #endregion
 
     #region Singleton
@@ -24,7 +23,6 @@ public class GridManager : MonoBehaviour
     public void GenerateGrid()
     {
         gridCount = Convert.ToInt32(UIManager.instance.gridCount.text);
-        cells = new GameObject[gridCount, gridCount];
 
         SetCamPos(gridCount);
 
@@ -36,7 +34,6 @@ public class GridManager : MonoBehaviour
             for (int j = 0; j < gridCount; j++)
             {
                 GameObject cell = Instantiate(Resources.Load<GameObject>("cell"), new Vector2(x, y), Quaternion.identity, transform);
-                cells[i, j] = cell;
                 cell.transform.DOScale(Vector3.one * 0.75f, 0.25f);
                 x++;
             }

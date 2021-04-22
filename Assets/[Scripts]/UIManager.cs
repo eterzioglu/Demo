@@ -7,8 +7,10 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
+    #region Variables
     public InputField gridCount;
     public Button button;
+    #endregion
 
     #region Singleton
     public static UIManager instance = null;

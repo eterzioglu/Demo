@@ -6,10 +6,12 @@ using DG.Tweening;
 
 public class GridManager : MonoBehaviour
 {
+    #region Variables
     int gridCount;
     public Camera cam;
     Vector3 camPos;
     public GameObject[,] cells;
+    #endregion
 
     #region Singleton
     public static GridManager instance = null;
@@ -56,12 +58,4 @@ public class GridManager : MonoBehaviour
             cam.transform.position = camPos;
         }
     }
-
-    public void DestroyCrosses(GameObject[] crosses)
-    {
-        for (int i = 0; i < crosses.Length; i++)
-        {
-            crosses[i].transform.DOScale(Vector3.one * 0, 0.25f).OnComplete(() => crosses[i].GetComponent<Cross>().youCanDestroy = true);
-    }
-}
 }

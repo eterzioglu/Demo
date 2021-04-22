@@ -12,6 +12,7 @@ public class TriggerControl : MonoBehaviour
         {
             fill = true;
             cellWithCross = other.gameObject.transform.GetChild(0).gameObject;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

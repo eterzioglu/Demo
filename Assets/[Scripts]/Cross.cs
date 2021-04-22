@@ -5,10 +5,12 @@ using DG.Tweening;
 
 public class Cross : MonoBehaviour
 {
+    #region Variables
     int count = 0;
     int index = 0;
     public GameObject[] crosses;
     public bool youCanDestroy = false;
+    #endregion
 
     void Start()
     {
@@ -16,26 +18,18 @@ public class Cross : MonoBehaviour
         crosses[index] = gameObject;
     }
 
-    void Update()
-    {
-        if (youCanDestroy) Destroy(gameObject);
-    }
-
     public void ControlCells()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            Debug.Log("ilk döngü");
             if (transform.GetChild(i).GetComponent<TriggerControl>().fill)
             {
-                Debug.Log("komşu bulundu");
                 index++;
                 crosses[index] = transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross;
                 count++;
                 if (count == 2)
                 {
-                    Debug.Log("ikinci eleman bulundu");
-                    GridManager.instance.DestroyCrosses(crosses);
+                    DestroyCrosses(crosses);
                     break;
                 }
             }
@@ -45,21 +39,26 @@ public class Cross : MonoBehaviour
         {
             for (int i = 0; i < crosses[1].transform.childCount; i++)
             {
-                Debug.Log("ikinci döngü");
-                if (crosses[index].transform.GetChild(i).GetComponent<TriggerControl>().fill && crosses[index].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross != gameObject)
+                if (crosses[1].transform.GetChild(i).GetComponent<TriggerControl>().fill && crosses[1].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross != gameObject)
                 {
                     index++;
-                    Debug.Log("eleman bulundu");
-                    crosses[index] = crosses[index].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross;
+                    crosses[index] = crosses[1].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross;
                     count++;
                     if (count == 2)
                     {
-                        Debug.Log("yok edildi");
-                        GridManager.instance.DestroyCrosses(crosses);
+                        DestroyCrosses(crosses);
                         break;
                     }
                 }
             }
+        }
+    }
+
+    void DestroyCrosses(GameObject[] crosses)
+    {
+        for (int i = 0; i < crosses.Length; i++)
+        {
+            Destroy(crosses[i].gameObject);
         }
     }
 

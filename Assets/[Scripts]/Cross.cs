@@ -7,23 +7,19 @@ public class Cross : MonoBehaviour
 {
     #region Variables
     int count = 0;
-    int index = 0;
-    public GameObject[] crosses;
+    public List<GameObject> crosses;
+    public List<GameObject> mainCrosses;
     public bool youCanDestroy = false;
     #endregion
-
-    void Start()
-    {
-        crosses = new GameObject[3];
-        crosses[index] = gameObject;
-    }
 
     void Update()
     {
         if (youCanDestroy)
         {
+            Debug.Log("yokedildi");
             transform.DOScale(Vector3.one * 0, 0.25f).OnComplete(() =>
             {
+                gameObject.transform.parent.gameObject.GetComponent<BoxCollider2D>().enabled = true;
                 Destroy(gameObject);
                 youCanDestroy = false;
             });
@@ -36,25 +32,34 @@ public class Cross : MonoBehaviour
         {
             if (transform.GetChild(i).GetComponent<TriggerControl>().fill)
             {
-                index++;
-                crosses[index] = transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross;
+                mainCrosses.Add(transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross);
                 count++;
-                if (count == 2)
-                {
-                    DestroyCrosses();
-                    break;
-                }
             }
         }
 
-        if (count == 1)
+        if (count >= 2)
         {
-            for (int i = 0; i < crosses[1].transform.childCount; i++)
+            Debug.Log("cross count 1 den büyük");
+            for (int i = 0; i < mainCrosses.Count; i++)
             {
-                if (crosses[1].transform.GetChild(i).GetComponent<TriggerControl>().fill && crosses[1].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross != gameObject)
+                for (int j = 0; j < mainCrosses[i].transform.childCount; j++)
                 {
-                    index++;
-                    crosses[index] = crosses[1].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross;
+                    if (mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().fill && mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().cellWithCross != gameObject)
+                    {
+                        crosses.Add(mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().cellWithCross);
+                    }
+                }
+            }
+            DestroyCrosses();
+        }
+        else
+        {
+            Debug.Log("cross count 1 den küçük");
+            for (int i = 0; i < mainCrosses[0].transform.childCount; i++)
+            {
+                if (mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().fill && mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross != gameObject)
+                {
+                    crosses.Add(mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross);
                     count++;
                     if (count == 2)
                     {
@@ -69,7 +74,12 @@ public class Cross : MonoBehaviour
     void DestroyCrosses()
     {
         UIManager.instance.scoreCount++;
-        for (int i = 0; i < crosses.Length; i++)
+        youCanDestroy = true;
+        for (int i = 0; i < mainCrosses.Count; i++)
+        {
+            mainCrosses[i].GetComponent<Cross>().youCanDestroy = true;
+        }
+        for (int i = 0; i < crosses.Count; i++)
         {
             crosses[i].GetComponent<Cross>().youCanDestroy = true;
         }

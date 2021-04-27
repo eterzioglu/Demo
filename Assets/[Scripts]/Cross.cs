@@ -31,7 +31,7 @@ public class Cross : MonoBehaviour
         {
             if (transform.GetChild(i).GetComponent<TriggerControl>().fill)
             {
-                mainCrosses.Add(transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross);
+                mainCrosses.Add(transform.GetChild(i).GetComponent<TriggerControl>().cross);
                 count++;
             }
         }
@@ -42,9 +42,9 @@ public class Cross : MonoBehaviour
             {
                 for (int j = 0; j < mainCrosses[i].transform.childCount; j++)
                 {
-                    if (mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().fill && mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().cellWithCross != gameObject)
+                    if (mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().fill && mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().cross != gameObject)
                     {
-                        crosses.Add(mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().cellWithCross);
+                        crosses.Add(mainCrosses[i].transform.GetChild(j).GetComponent<TriggerControl>().cross);
                     }
                 }
             }
@@ -54,9 +54,9 @@ public class Cross : MonoBehaviour
         {
             for (int i = 0; i < mainCrosses[0].transform.childCount; i++)
             {
-                if (mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().fill && mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross != gameObject)
+                if (mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().fill && mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().cross != gameObject)
                 {
-                    crosses.Add(mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().cellWithCross);
+                    crosses.Add(mainCrosses[0].transform.GetChild(i).GetComponent<TriggerControl>().cross);
                     count++;
                     if (count == 2)
                     {

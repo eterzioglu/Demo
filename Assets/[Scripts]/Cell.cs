@@ -9,12 +9,12 @@ public class Cell : MonoBehaviour
 
     void Update()
     {
-        if (transform.childCount > 0) value = 1;
-        else value = 0;
+        if (transform.childCount == 0) GetComponent<BoxCollider2D>().enabled = true;
     }
 
     void OnMouseDown()
     {
+        GetComponent<BoxCollider2D>().enabled = false;
         SpriteRenderer cross = Instantiate(Resources.Load<SpriteRenderer>("cross"), transform.position, Quaternion.identity, transform);
         cross.transform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
         {

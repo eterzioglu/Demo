@@ -5,13 +5,13 @@ using UnityEngine;
 public class TriggerControl : MonoBehaviour
 {
     public bool fill = false;
-    public GameObject cellWithCross;
+    public GameObject cross;
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "cell" && other.GetComponent<Cell>().value == 1)
+        if (other.gameObject.tag == "cross")
         {
             fill = true;
-            cellWithCross = other.gameObject.transform.GetChild(0).gameObject;
+            cross = other.gameObject;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
